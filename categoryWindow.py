@@ -3,6 +3,8 @@ from qtpy import QtWidgets
 from ui.dialogcategories import Ui_Dialog
 from dbConnecter import DbConnector
 
+#TODO Bearbeiten und Löschen noch umsetzen
+
 class CategoryWindow(QtWidgets.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)

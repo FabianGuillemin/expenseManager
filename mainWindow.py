@@ -52,17 +52,6 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.tableWidget.setItem(rowNumber, 3, QtWidgets.QTableWidgetItem(str(rowData[4])))
             self.ui.tableWidget.setItem(rowNumber, 4, QtWidgets.QTableWidgetItem(str(rowData[5])))
 
-
-
-
-
-
-
-
-
-
-
-
 window = MainWindow()
 window.show()
 
