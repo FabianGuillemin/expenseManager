@@ -8,6 +8,7 @@ from categoryWindow import CategoryWindow
 
 app = QtWidgets.QApplication(sys.argv)
 
+#TODO Prüfung ob Verbindung zu DB aufgebaut werden kann
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -16,7 +17,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.setWindowTitle("expanse Manager - BETA")
+        self.setWindowTitle("expense Manager - BETA")
 
         self.fillTableWidget()
         self.ui.btnExpense.clicked.connect(self.addExpense)

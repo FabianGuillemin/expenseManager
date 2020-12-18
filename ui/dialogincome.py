@@ -43,6 +43,7 @@ class Ui_Dialog(object):
         self.lineEditRemark.setObjectName("lineEditRemark")
         self.gridLayout.addWidget(self.lineEditRemark, 3, 1, 1, 1)
         self.comboBoxCategory = QtWidgets.QComboBox(Dialog)
+        self.comboBoxCategory.setPlaceholderText("")
         self.comboBoxCategory.setObjectName("comboBoxCategory")
         self.gridLayout.addWidget(self.comboBoxCategory, 1, 1, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
@@ -64,4 +65,3 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "Datum"))
         self.label_2.setText(_translate("Dialog", "Kategorie"))
         self.label_4.setText(_translate("Dialog", "Bemerkung"))
-        self.comboBoxCategory.setPlaceholderText(_translate("Dialog", "---"))
