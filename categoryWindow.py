@@ -33,7 +33,7 @@ class CategoryWindow(DbConnector, QtWidgets.QDialog):
         if self.serverIsOn() == True:
             conn = DbConnector().connect()
             cur = conn.cursor()
-            cur.execute("""INSERT INTO category (category_id, category, in_or_outcome) VALUES (default, '{0}', '{1}')""".format(category, typ))
+            cur.execute("""INSERT INTO category (category_id, category, typ) VALUES (default, '{0}', '{1}')""".format(category, typ))
             conn.commit()
         else:
             self.msgDbCritical()
@@ -92,7 +92,7 @@ class ChangeCategoryWindow(DbConnector, QtWidgets.QDialog):
         if self.serverIsOn() == True:
             conn = DbConnector().connect()
             cur = conn.cursor()
-            cur.execute("""UPDATE category SET category = '{0}', in_or_outcome = '{1}' WHERE category_id = '{2}'""".format(category, typ, id))
+            cur.execute("""UPDATE category SET category = '{0}', typ = '{1}' WHERE category_id = '{2}'""".format(category, typ, id))
             conn.commit()
             self.windowClose()
         else:

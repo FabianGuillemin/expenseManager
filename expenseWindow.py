@@ -42,7 +42,7 @@ class ExpenseWindow(DbConnector, QtWidgets.QDialog):
         if self.serverIsOn() == True:
             conn = DbConnector().connect()
             cur = conn.cursor()
-            cur.execute("SELECT * FROM category WHERE in_or_outcome = 'Ausgabe'")
+            cur.execute("SELECT * FROM category WHERE typ = 'Ausgabe'")
             results = cur.fetchall()
             s = set()
             for result in results:

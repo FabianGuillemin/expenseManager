@@ -1,0 +1,10 @@
+Querys zum kopieren. Für die Erstellung einer neuen DB:
+
+Datenbank erstellen:
+CREATE DATABASE db_expensemanager;
+
+Tabelle "entries" erstellen:
+CREATE TABLE entries (entry_id SERIAL PRIMARY KEY, date date, category text, amount numeric, cue text, remark text, typ text);
+
+Tabelle "category" erstellen:
+CREATE TABLE category (category_id SERIAL PRIMARY KEY, category text, typ text);
