@@ -1,5 +1,4 @@
 from qtpy import QtWidgets
-
 from ui.dialogcategories import Ui_Dialog
 from ui.dialogchangecategory import Ui_Dialog as Ui_DialogChange
 from dbConnecter import DbConnector
@@ -21,7 +20,7 @@ class CategoryWindow(DbConnector, QtWidgets.QDialog):
 
         self.ui.btnSave.clicked.connect(self.writeDB)
         self.ui.btnUpdate.clicked.connect(self.fillTableWidgetCat)
-        self.ui.tableWidget.cellClicked.connect(self.clickRow)
+        self.ui.tableWidget.cellDoubleClicked.connect(self.clickRow)
 
     def clickRow(self, row):
         id = str(self.ui.tableWidget.item(row, 0).text())
@@ -56,8 +55,6 @@ class CategoryWindow(DbConnector, QtWidgets.QDialog):
                 self.ui.tableWidget.setItem(rowNumber, 2, QtWidgets.QTableWidgetItem(str(rowData[2])))
         else:
             self.msgDbCritical()
-
-
 
 
 class ChangeCategoryWindow(DbConnector, QtWidgets.QDialog):

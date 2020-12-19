@@ -4,14 +4,15 @@ import csv
 from qtpy import QtWidgets
 from ui.dialogdbconfiguration import Ui_Dialog
 
+
 class DbConnector():
 
     def connect(self):
         dict = self.readConfFile()
-        host = dict["host"]
-        user = dict["user"]
-        pw = dict["pw"]
-        db_name = dict["db_name"]
+        host = dict.get("host")
+        user = dict.get("user")
+        pw = dict.get("pw")
+        db_name = dict.get("db_name")
         if self.serverIsOn() == True:
             if self.checkLogin() == True:
                 self.conn = psycopg2.connect("host='{0}' user='{1}' password='{2}' dbname='{3}'".format(host, user, pw, db_name))
@@ -22,8 +23,8 @@ class DbConnector():
 
     def serverIsOn(self):
         dict = self.readConfFile()
-        host = dict["host"]
-        port = dict["port"]
+        host = dict.get("host")
+        port = dict.get("port")
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(1)
         result = s.connect_ex((host, int(port)))
@@ -35,10 +36,10 @@ class DbConnector():
 
     def checkLogin(self):
         dict = self.readConfFile()
-        host = dict["host"]
-        user = dict["user"]
-        pw = dict["pw"]
-        db_name = dict["db_name"]
+        host = dict.get("host")
+        user = dict.get("user")
+        pw = dict.get("pw")
+        db_name = dict.get("db_name")
         try:
             psycopg2.connect("host='{0}' user='{1}' password='{2}' dbname='{3}'".format(host, user, pw, db_name))
             return True
@@ -83,7 +84,7 @@ class DbConfiguration(DbConnector, QtWidgets.QDialog):
         self.setWindowTitle("Datenbank Konfiguration")
         dict = self.readConfFile()
         self.ui.lineEditHost.setText(dict["host"])
-        self.ui.lineEditPort.setText(dict["port"])
+        self.ui.spinBoxPort.setValue(int(dict["port"]))
         self.ui.lineEditUser.setText(dict["user"])
         self.ui.lineEditPW.setText(dict["pw"])
         self.ui.lineEditDBName.setText(dict["db_name"])
@@ -93,7 +94,7 @@ class DbConfiguration(DbConnector, QtWidgets.QDialog):
     def writeConfFile(self):
         dictConfValues = {
             "host": self.ui.lineEditHost.text().strip(),
-            "port": self.ui.lineEditPort.text().strip(),
+            "port": self.ui.spinBoxPort.text().strip(),
             "user": self.ui.lineEditUser.text().strip(),
             "pw": self.ui.lineEditPW.text().strip(),
             "db_name": self.ui.lineEditDBName.text().strip()

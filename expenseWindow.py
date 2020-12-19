@@ -1,8 +1,8 @@
 from qtpy import QtWidgets
 from datetime import datetime
-
 from ui.dialogexpense import Ui_Dialog
 from dbConnecter import DbConnector
+
 
 class ExpenseWindow(DbConnector, QtWidgets.QDialog):
     def __init__(self, parent=None):
@@ -33,7 +33,7 @@ class ExpenseWindow(DbConnector, QtWidgets.QDialog):
         if self.serverIsOn() == True:
             conn = DbConnector().connect()
             cur = conn.cursor()
-            cur.execute("""INSERT INTO entries (entry_id, date, category, amount, cue, remark) VALUES (default, '{0}', '{1}', '{2}', '{3}', '{4}')""".format(date, category, amount, cue, remark))
+            cur.execute("""INSERT INTO entries (entry_id, typ, date, category, amount, cue, remark) VALUES (default, 'out', '{0}', '{1}', '{2}', '{3}', '{4}')""".format(date, category, amount, cue, remark))
             conn.commit()
         else:
             self.msgDbCritical()
