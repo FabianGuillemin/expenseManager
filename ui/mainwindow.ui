@@ -198,6 +198,7 @@
      <string>Menü</string>
     </property>
     <addaction name="actionKategorie_bearbeiten"/>
+    <addaction name="actionDB_Konfiguration"/>
    </widget>
    <addaction name="menuMen"/>
   </widget>
@@ -205,6 +206,11 @@
   <action name="actionKategorie_bearbeiten">
    <property name="text">
     <string>Kategorie bearbeiten</string>
+   </property>
+  </action>
+  <action name="actionDB_Konfiguration">
+   <property name="text">
+    <string>DB Konfiguration</string>
    </property>
   </action>
  </widget>

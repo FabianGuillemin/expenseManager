@@ -18,6 +18,7 @@ HEADERS += \
 FORMS += \
     dialogcategories.ui \
     dialogchangecategory.ui \
+    dialogdbconfiguration.ui \
     dialogexpense.ui \
     dialogincome.ui \
     mainwindow.ui

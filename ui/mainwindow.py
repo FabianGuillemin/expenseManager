@@ -108,7 +108,10 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.actionKategorie_bearbeiten = QtWidgets.QAction(MainWindow)
         self.actionKategorie_bearbeiten.setObjectName("actionKategorie_bearbeiten")
+        self.actionDB_Konfiguration = QtWidgets.QAction(MainWindow)
+        self.actionDB_Konfiguration.setObjectName("actionDB_Konfiguration")
         self.menuMen.addAction(self.actionKategorie_bearbeiten)
+        self.menuMen.addAction(self.actionDB_Konfiguration)
         self.menubar.addAction(self.menuMen.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -135,3 +138,4 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Bemerkung"))
         self.menuMen.setTitle(_translate("MainWindow", "Menü"))
         self.actionKategorie_bearbeiten.setText(_translate("MainWindow", "Kategorie bearbeiten"))
+        self.actionDB_Konfiguration.setText(_translate("MainWindow", "DB Konfiguration"))

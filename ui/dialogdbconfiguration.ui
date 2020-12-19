@@ -16,56 +16,59 @@
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Betrag</string>
+        <string>Passwort</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="lineEditDBName"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEditUser"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>User</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Datum</string>
+        <string>Host</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>DB Name</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QDateEdit" name="dateEdit"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Kategorie</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Bemerkung</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QDoubleSpinBox" name="doubleSpinBoxAmount">
-       <property name="maximum">
-        <double>99999999999.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.050000000000000</double>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="lineEditHost"/>
      </item>
      <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEditRemark"/>
-     </item>
-     <item row="1" column="1">
-      <widget class="QComboBox" name="comboBoxCategory">
-       <property name="placeholderText">
-        <string/>
+      <widget class="QLineEdit" name="lineEditPW">
+       <property name="acceptDrops">
+        <bool>true</bool>
        </property>
       </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Port</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEditPort"/>
      </item>
     </layout>
    </item>

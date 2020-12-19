@@ -2,7 +2,7 @@ import sys
 from qtpy import QtWidgets
 
 from ui.mainwindow import Ui_MainWindow
-from dbConnecter import DbConnector
+from dbConnecter import DbConnector, DbConfiguration
 from expenseWindow import ExpenseWindow
 from incomeWindow import IncomeWindow
 from categoryWindow import CategoryWindow
@@ -21,7 +21,10 @@ class MainWindow(DbConnector, QtWidgets.QMainWindow):
         self.setWindowTitle("expense Manager - BETA")
 
         if self.serverIsOn() == True:
-            self.fillTableWidget()
+            if self.checkLogin() == True:
+                self.fillTableWidget()
+            else:
+                self.msgLoginCritical()
         else:
             self.msgDbCritical()
 
@@ -29,6 +32,7 @@ class MainWindow(DbConnector, QtWidgets.QMainWindow):
         self.ui.btnIncome.clicked.connect(self.addIncome)
         self.ui.btnUpdate.clicked.connect(self.fillTableWidget)
         self.ui.actionKategorie_bearbeiten.triggered.connect(self.confCategory)
+        self.ui.actionDB_Konfiguration.triggered.connect(self.confDb)
 
     def addExpense(self):
         self.expenseWindow = ExpenseWindow()
@@ -41,6 +45,10 @@ class MainWindow(DbConnector, QtWidgets.QMainWindow):
     def confCategory(self):
         self.categoryWindow = CategoryWindow()
         self.categoryWindow.show()
+
+    def confDb(self):
+        self.dbConfWindow = DbConfiguration()
+        self.dbConfWindow.show()
 
     def fillTableWidget(self):
         conn = DbConnector().connect()
