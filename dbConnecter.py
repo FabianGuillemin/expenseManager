@@ -16,7 +16,6 @@ class DbConnector():
         if self.serverIsOn() == True:
             if self.checkLogin() == True:
                 self.conn = psycopg2.connect("host='{0}' user='{1}' password='{2}' dbname='{3}'".format(host, user, pw, db_name))
-                print(self.conn)
                 return self.conn
         else:
             print("Verbindung nicht möglich")

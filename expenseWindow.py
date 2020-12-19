@@ -25,15 +25,15 @@ class ExpenseWindow(DbConnector, QtWidgets.QDialog):
         y, m, d = self.ui.dateEdit.date().getDate()
         date = str(d) + "." + str(m) + "." + str(y)
         category = self.ui.comboBoxCategory.currentText()
-        value = self.ui.doubleSpinBoxAmount.value()
-        amount = value - value - value
+        amount = self.ui.doubleSpinBoxAmount.value()
+        #amount = value - value - value
         cue = self.ui.lineEditCue.text()
         remark = self.ui.lineEditRemark.text()
 
         if self.serverIsOn() == True:
             conn = DbConnector().connect()
             cur = conn.cursor()
-            cur.execute("""INSERT INTO entries (entry_id, typ, date, category, amount, cue, remark) VALUES (default, 'out', '{0}', '{1}', '{2}', '{3}', '{4}')""".format(date, category, amount, cue, remark))
+            cur.execute("""INSERT INTO entries (entry_id, typ, date, category, amount, cue, remark) VALUES (default, 'Ausgabe', '{0}', '{1}', '{2}', '{3}', '{4}')""".format(date, category, amount, cue, remark))
             conn.commit()
         else:
             self.msgDbCritical()

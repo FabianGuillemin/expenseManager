@@ -32,7 +32,7 @@ class IncomeWindow(DbConnector, QtWidgets.QDialog):
         if self.serverIsOn() == True:
             conn = DbConnector().connect()
             cur = conn.cursor()
-            cur.execute("""INSERT INTO entries (entry_id, typ, date, category, amount, cue, remark) VALUES (default, 'in', '{0}', '{1}', '{2}', '{3}', '{4}')""".format(date, category, amount, cue, remark))
+            cur.execute("""INSERT INTO entries (entry_id, typ, date, category, amount, cue, remark) VALUES (default, 'Einnahme', '{0}', '{1}', '{2}', '{3}', '{4}')""".format(date, category, amount, cue, remark))
             conn.commit()
         else:
             self.msgDbCritical()
