@@ -153,6 +153,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditCategory</tabstop>
+  <tabstop>comboBoxInOrOutcome</tabstop>
+  <tabstop>btnSave</tabstop>
+  <tabstop>btnUpdate</tabstop>
+  <tabstop>tableWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -137,7 +137,7 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Betrag"))
         item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("MainWindow", "TYP"))
+        item.setText(_translate("MainWindow", "Typ"))
         item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("MainWindow", "Stichwort"))
         item = self.tableWidget.horizontalHeaderItem(6)

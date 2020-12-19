@@ -81,6 +81,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>comboBoxCategory</tabstop>
+  <tabstop>doubleSpinBoxAmount</tabstop>
+  <tabstop>lineEditRemark</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

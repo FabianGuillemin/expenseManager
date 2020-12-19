@@ -88,6 +88,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditHost</tabstop>
+  <tabstop>spinBoxPort</tabstop>
+  <tabstop>lineEditUser</tabstop>
+  <tabstop>lineEditPW</tabstop>
+  <tabstop>lineEditDBName</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

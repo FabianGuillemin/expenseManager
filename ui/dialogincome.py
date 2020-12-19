@@ -57,6 +57,9 @@ class Ui_Dialog(object):
         self.buttonBox.accepted.connect(Dialog.accept)
         self.buttonBox.rejected.connect(Dialog.reject)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+        Dialog.setTabOrder(self.dateEdit, self.comboBoxCategory)
+        Dialog.setTabOrder(self.comboBoxCategory, self.doubleSpinBoxAmount)
+        Dialog.setTabOrder(self.doubleSpinBoxAmount, self.lineEditRemark)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
