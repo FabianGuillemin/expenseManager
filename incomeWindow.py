@@ -5,7 +5,7 @@ from datetime import datetime
 from ui.dialogincome import Ui_Dialog
 from dbConnecter import DbConnector
 
-class IncomeWindow(QtWidgets.QDialog):
+class IncomeWindow(DbConnector, QtWidgets.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -14,7 +14,10 @@ class IncomeWindow(QtWidgets.QDialog):
 
         self.setWindowTitle("Einnahme erfassen")
 
-        self.getIncomeCategories()
+        if self.serverIsOn() == True:
+            self.getIncomeCategories()
+        else:
+            self.msgDbCritical()
 
         self.ui.buttonBox.accepted.connect(self.writeDB)
         self.ui.dateEdit.setDate(datetime.now().date())
@@ -27,22 +30,26 @@ class IncomeWindow(QtWidgets.QDialog):
         cue = ""
         remark = self.ui.lineEditRemark.text()
         print(date, category, amount, remark)
-
-        conn = DbConnector().connect()
-        cur = conn.cursor()
-
-        cur.execute("""INSERT INTO entries (entry_id, date, category, amount, cue, remark) VALUES (default, '{0}', '{1}', '{2}', '{3}', '{4}')""".format(date, category, amount, cue, remark))
-        conn.commit()
+        if self.serverIsOn() == True:
+            conn = DbConnector().connect()
+            cur = conn.cursor()
+            cur.execute("""INSERT INTO entries (entry_id, date, category, amount, cue, remark) VALUES (default, '{0}', '{1}', '{2}', '{3}', '{4}')""".format(date, category, amount, cue, remark))
+            conn.commit()
+        else:
+            self.msgDbCritical()
 
     def getIncomeCategories(self):
-        conn = DbConnector().connect()
-        cur = conn.cursor()
-        cur.execute("SELECT * FROM category WHERE in_or_outcome = 'Einnahme'")
-        results = cur.fetchall()
-        s = set()
-        for result in results:
-            s.add(result[1])
-        self.ui.comboBoxCategory.addItems(s)
+        if self.serverIsOn() == True:
+            conn = DbConnector().connect()
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM category WHERE in_or_outcome = 'Einnahme'")
+            results = cur.fetchall()
+            s = set()
+            for result in results:
+                s.add(result[1])
+            self.ui.comboBoxCategory.addItems(s)
+        else:
+            self.msgDbCritical()
 
 
 

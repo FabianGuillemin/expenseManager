@@ -4,7 +4,7 @@ from datetime import datetime
 from ui.dialogexpense import Ui_Dialog
 from dbConnecter import DbConnector
 
-class ExpenseWindow(QtWidgets.QDialog):
+class ExpenseWindow(DbConnector, QtWidgets.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -13,7 +13,10 @@ class ExpenseWindow(QtWidgets.QDialog):
 
         self.setWindowTitle("Ausgabe erfassen")
 
-        self.getExpenseCategories()
+        if self.serverIsOn() == True:
+            self.getExpenseCategories()
+        else:
+            self.msgDbCritical()
 
         self.ui.buttonBox.accepted.connect(self.writeDB)
         self.ui.dateEdit.setDate(datetime.now().date())
@@ -27,21 +30,26 @@ class ExpenseWindow(QtWidgets.QDialog):
         cue = self.ui.lineEditCue.text()
         remark = self.ui.lineEditRemark.text()
 
-        conn = DbConnector().connect()
-        cur = conn.cursor()
-
-        cur.execute("""INSERT INTO entries (entry_id, date, category, amount, cue, remark) VALUES (default, '{0}', '{1}', '{2}', '{3}', '{4}')""".format(date, category, amount, cue, remark))
-        conn.commit()
+        if self.serverIsOn() == True:
+            conn = DbConnector().connect()
+            cur = conn.cursor()
+            cur.execute("""INSERT INTO entries (entry_id, date, category, amount, cue, remark) VALUES (default, '{0}', '{1}', '{2}', '{3}', '{4}')""".format(date, category, amount, cue, remark))
+            conn.commit()
+        else:
+            self.msgDbCritical()
 
     def getExpenseCategories(self):
-        conn = DbConnector().connect()
-        cur = conn.cursor()
-        cur.execute("SELECT * FROM category WHERE in_or_outcome = 'Ausgabe'")
-        results = cur.fetchall()
-        s = set()
-        for result in results:
-            s.add(result[1])
-        self.ui.comboBoxCategory.addItems(s)
+        if self.serverIsOn() == True:
+            conn = DbConnector().connect()
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM category WHERE in_or_outcome = 'Ausgabe'")
+            results = cur.fetchall()
+            s = set()
+            for result in results:
+                s.add(result[1])
+            self.ui.comboBoxCategory.addItems(s)
+        else:
+            self.msgDbCritical()
 
 
 
