@@ -7,7 +7,6 @@ class ChangeEntryWindow(DbConnector, QtWidgets.QDialog):
     def __init__(self, id, parent=None):
         super().__init__(parent)
         self.id = id
-        print(self.id)
 
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)

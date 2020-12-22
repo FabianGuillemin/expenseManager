@@ -1,5 +1,6 @@
 import sys
 from qtpy import QtWidgets
+from datetime import datetime
 from ui.mainwindow import Ui_MainWindow
 from dbConnecter import DbConnector, DbConfiguration
 from expenseWindow import ExpenseWindow
@@ -33,6 +34,16 @@ class MainWindow(DbConnector, QtWidgets.QMainWindow):
         self.ui.actionKategorie_bearbeiten.triggered.connect(self.confCategory)
         self.ui.actionDB_Konfiguration.triggered.connect(self.confDb)
         self.ui.tableWidget.cellDoubleClicked.connect(self.clickRow)
+
+        conn = DbConnector().connect()
+        cur = conn.cursor()
+        y, m, d = str(datetime.now().date()).split("-")
+        ly = int(y) - 1
+        lm = int(m) - 1
+        cur.execute("SELECT SUM(amount) FROM entries WHERE date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}'".format(m, y))
+        result_this_year = cur.fetchall()
+        cur.execute("SELECT SUM(amount) FROM entries WHERE date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}'".format(m, str(ly)))
+        result = cur.fetchall()
 
     def clickRow(self, row):
         id = str(self.ui.tableWidget.item(row, 0).text())
@@ -72,7 +83,17 @@ class MainWindow(DbConnector, QtWidgets.QMainWindow):
             self.ui.tableWidget.setItem(rowNumber, 5, QtWidgets.QTableWidgetItem(str(rowData[4])))
             self.ui.tableWidget.setItem(rowNumber, 6, QtWidgets.QTableWidgetItem(str(rowData[5])))
         self.ui.tableWidget.setColumnHidden(0, True)
-
+        y, m, d = str(datetime.now().date()).split("-")
+        cur.execute("SELECT SUM(amount) FROM entries WHERE typ = 'Ausgabe' AND date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}'".format(m, y))
+        resultExpense = cur.fetchall()
+        expense = resultExpense[0][0]
+        self.ui.totalExpense.setText(str(expense))
+        cur.execute("SELECT SUM(amount) FROM entries WHERE typ = 'Einnahme' AND date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}'".format(m, y))
+        resultReceipt = cur.fetchall()
+        receipt = resultReceipt[0][0]
+        self.ui.totalReceipt.setText(str(receipt))
+        diff = receipt - expense
+        self.ui.totalDiff.setText(str(diff))
 
 window = MainWindow()
 window.show()
