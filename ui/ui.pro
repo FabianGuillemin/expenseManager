@@ -22,7 +22,8 @@ FORMS += \
     dialogdbconfiguration.ui \
     dialogexpense.ui \
     dialogincome.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    mainwindowoverview.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

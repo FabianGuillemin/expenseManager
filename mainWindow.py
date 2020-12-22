@@ -7,6 +7,7 @@ from expenseWindow import ExpenseWindow
 from incomeWindow import IncomeWindow
 from categoryWindow import CategoryWindow
 from changeEntryWindow import ChangeEntryWindow
+from overviewWindow import OverviewWindow
 
 app = QtWidgets.QApplication(sys.argv)
 
@@ -33,17 +34,8 @@ class MainWindow(DbConnector, QtWidgets.QMainWindow):
         self.ui.btnUpdate.clicked.connect(self.fillTableWidget)
         self.ui.actionKategorie_bearbeiten.triggered.connect(self.confCategory)
         self.ui.actionDB_Konfiguration.triggered.connect(self.confDb)
+        self.ui.actionBuchungs_bersicht.triggered.connect(self.overview)
         self.ui.tableWidget.cellDoubleClicked.connect(self.clickRow)
-
-        conn = DbConnector().connect()
-        cur = conn.cursor()
-        y, m, d = str(datetime.now().date()).split("-")
-        ly = int(y) - 1
-        lm = int(m) - 1
-        cur.execute("SELECT SUM(amount) FROM entries WHERE date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}'".format(m, y))
-        result_this_year = cur.fetchall()
-        cur.execute("SELECT SUM(amount) FROM entries WHERE date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}'".format(m, str(ly)))
-        result = cur.fetchall()
 
     def clickRow(self, row):
         id = str(self.ui.tableWidget.item(row, 0).text())
@@ -57,6 +49,10 @@ class MainWindow(DbConnector, QtWidgets.QMainWindow):
     def addIncome(self):
         self.incomeWindow = IncomeWindow()
         self.incomeWindow.show()
+
+    def overview(self):
+        self.overviewWindow = OverviewWindow()
+        self.overviewWindow.show()
 
     def confCategory(self):
         self.categoryWindow = CategoryWindow()
