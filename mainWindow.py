@@ -83,10 +83,14 @@ class MainWindow(DbConnector, QtWidgets.QMainWindow):
         cur.execute("SELECT SUM(amount) FROM entries WHERE typ = 'Ausgabe' AND date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}'".format(m, y))
         resultExpense = cur.fetchall()
         expense = resultExpense[0][0]
+        if expense == None:
+            expense = 0
         self.ui.totalExpense.setText(str(expense))
         cur.execute("SELECT SUM(amount) FROM entries WHERE typ = 'Einnahme' AND date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}'".format(m, y))
         resultReceipt = cur.fetchall()
         receipt = resultReceipt[0][0]
+        if receipt == None:
+            receipt = 0
         self.ui.totalReceipt.setText(str(receipt))
         diff = receipt - expense
         self.ui.totalDiff.setText(str(diff))

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(821, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -164,7 +164,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tableWidget, 2, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 821, 26))
         self.menubar.setObjectName("menubar")
         self.menuMen = QtWidgets.QMenu(self.menubar)
         self.menuMen.setObjectName("menuMen")
@@ -198,7 +198,7 @@ class Ui_MainWindow(object):
         self.btnExpense.setText(_translate("MainWindow", "Ausgabe"))
         self.btnIncome.setText(_translate("MainWindow", "Einnahme"))
         self.btnUpdate.setText(_translate("MainWindow", "Aktualisieren"))
-        self.label_4.setText(_translate("MainWindow", "Monatstotal:"))
+        self.label_4.setText(_translate("MainWindow", "Aktueller Monat:"))
         self.label_2.setText(_translate("MainWindow", "Ausgabe"))
         self.label_3.setText(_translate("MainWindow", "Einnahme"))
         self.label_5.setText(_translate("MainWindow", "Differenz"))

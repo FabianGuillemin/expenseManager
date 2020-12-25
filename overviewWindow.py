@@ -37,7 +37,7 @@ class OverviewWindow(DbConnector, QtWidgets.QMainWindow):
         self.ChangeEntryWindow.show()
 
     def setMonth(self):
-        sMonth = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}
+        sMonth = {"*", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}
         return sorted(sMonth)
 
     def setYear(self):
@@ -47,12 +47,20 @@ class OverviewWindow(DbConnector, QtWidgets.QMainWindow):
         for i in range(0, 10):
             y = year + i
             sYear.add(str(y))
+        sYear.add("*")
         return sorted(sYear)
 
     def fillTableWidget(self):
         conn = DbConnector().connect()
         cur = conn.cursor()
-        cur.execute("SELECT * FROM entries WHERE date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}' ORDER BY date DESC".format(self.ui.comboBoxMonth.currentText(), self.ui.comboBoxYear.currentText()))
+        month = self.ui.comboBoxMonth.currentText()
+        year = self.ui.comboBoxYear.currentText()
+        if month == "*" and year == "*":
+            cur.execute("SELECT * FROM entries ORDER BY date DESC")
+        elif month == "*" and year != "*":
+            cur.execute("SELECT * FROM entries WHERE date_part('year', date::date) = '{0}' ORDER BY date DESC".format(year))
+        else:
+            cur.execute("SELECT * FROM entries WHERE date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}' ORDER BY date DESC".format(month, year))
         result = cur.fetchall()
         self.ui.tableWidget.setRowCount(0)
         for rowNumber, rowData in enumerate(result):
@@ -66,5 +74,31 @@ class OverviewWindow(DbConnector, QtWidgets.QMainWindow):
             self.ui.tableWidget.setItem(rowNumber, 5, QtWidgets.QTableWidgetItem(str(rowData[4])))
             self.ui.tableWidget.setItem(rowNumber, 6, QtWidgets.QTableWidgetItem(str(rowData[5])))
         self.ui.tableWidget.setColumnHidden(0, True)
+        #TODO month != "*" and year == "*" noch abfangen
+        if month == "*" and year == "*":
+            cur.execute("SELECT SUM(amount) FROM entries WHERE typ = 'Ausgabe'")
+        elif month == "*" and year != "*":
+            cur.execute("SELECT SUM(amount) FROM entries WHERE typ = 'Ausgabe' AND date_part('year', date::date) = '{0}'".format(year))
+        else:
+            cur.execute("SELECT SUM(amount) FROM entries WHERE typ = 'Ausgabe' AND date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}'".format(month, year))
+        resultExpense = cur.fetchall()
+        expense = resultExpense[0][0]
+        if expense == None:
+            expense = 0
+        self.ui.totalExpense.setText(str(expense))
+        if month == "*" and year == "*":
+            cur.execute("SELECT SUM(amount) FROM entries WHERE typ = 'Einnahme'")
+        elif month == "*" and year != "*":
+            cur.execute("SELECT SUM(amount) FROM entries WHERE typ = 'Einnahme' AND date_part('year', date::date) = '{0}'".format(year))
+        else:
+            cur.execute("SELECT SUM(amount) FROM entries WHERE typ = 'Einnahme' AND date_part('month', date::date) = '{0}' AND date_part('year', date::date) = '{1}'".format(month, year))
+        resultReceipt = cur.fetchall()
+        receipt = resultReceipt[0][0]
+        if receipt == None:
+            receipt = 0
+        self.ui.totalReceipt.setText(str(receipt))
+        diff = receipt - expense
+        self.ui.totalDiff.setText(str(diff))
+        self.ui.totalEntries.setText(str(self.ui.tableWidget.rowCount()))
 
 

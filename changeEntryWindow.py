@@ -29,8 +29,11 @@ class ChangeEntryWindow(DbConnector, QtWidgets.QDialog):
         self.ui.doubleSpinBoxAmount.setValue(float(amount))
         if typ == "Ausgabe":
             self.getExpenseCategories()
+            self.ui.comboBoxCategory.setCurrentText(category)
         else:
             self.getIncomeCategories()
+            self.ui.comboBoxCategory.setCurrentText(category)
+
 
     def getExpenseCategories(self):
         if self.serverIsOn() == True:
