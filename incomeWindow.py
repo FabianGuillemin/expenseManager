@@ -3,7 +3,7 @@ from datetime import datetime
 from ui.dialogincome import Ui_Dialog
 from dbConnecter import DbConnector
 
-
+#TODO - Wiederholende Einträge ergänzen
 class IncomeWindow(DbConnector, QtWidgets.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)

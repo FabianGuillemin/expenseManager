@@ -14,7 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(821, 600)
+        MainWindow.resize(1200, 725)
+        MainWindow.setMinimumSize(QtCore.QSize(1200, 0))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -93,6 +94,7 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 1, 0, 1, 1)
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        self.tableWidget.setMinimumSize(QtCore.QSize(0, 0))
         self.tableWidget.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         self.tableWidget.setAutoFillBackground(False)
         self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -164,7 +166,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tableWidget, 2, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 821, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1200, 26))
         self.menubar.setObjectName("menubar")
         self.menuMen = QtWidgets.QMenu(self.menubar)
         self.menuMen.setObjectName("menuMen")
